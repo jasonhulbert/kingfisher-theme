@@ -285,7 +285,8 @@ function colors(t: ResolvedTheme): Record<string, string> {
     'editorWarning.foreground': warning.base.hex,
     'editorInfo.foreground': info.base.hex,
     'editorHint.foreground': hint.base.hex,
-    'editorUnnecessaryCode.opacity': '#00000088',
+    // VS Code reads only the alpha: unused code at 53% opacity.
+    'editorUnnecessaryCode.opacity': alpha(n.fg, 0.533),
     'editorGutter.background': n.bg.hex,
     'editorGutter.addedBackground': v.added.base.hex,
     'editorGutter.modifiedBackground': v.modified.base.hex,

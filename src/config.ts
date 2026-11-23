@@ -42,8 +42,12 @@ export interface HueConfig {
   hue: number;
   /** OKLCH chroma at full strength, before the variant's multiplier. */
   chroma: number;
-  /** Lightness offsets so hues of different natural brightness read at the same weight. */
-  nudge?: Partial<Record<Appearance, number>>;
+  /**
+   * Lightness offsets so hues of different natural brightness read at the same
+   * weight. Keyed by appearance (`light`, `dark`) or by variant id; a variant id
+   * wins over its appearance.
+   */
+  nudge?: Partial<Record<string, number>>;
 }
 
 export interface VariantConfig {
@@ -59,7 +63,7 @@ export interface VariantConfig {
     lightness: number;
     /** Multiplier on each hue's chroma. */
     chroma: number;
-    /** Lightness added for the bright step (bright ANSI colors, hover states). */
+    /** Lightness added for the bright step (bright ANSI colors, hover states). Negative in light mode, so the step goes darker. */
     brightStep: number;
   };
   /** Extra chroma multiplier for code colors, so syntax reads quieter than interface accents. */

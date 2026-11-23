@@ -24,7 +24,10 @@ export default defineTheme({
 
   hues: {
     crown: { hue: 16, chroma: 0.17, nudge: { light: -0.02, dark: -0.06 } },
-    beak: { hue: 38, chroma: 0.16, nudge: { dark: 0.01 } },
+    // The accent. Its lightness clears the ChatGPT app's contrast floor for
+    // accent text in each variant, so ChatGPT shows it unchanged, as every
+    // other app does.
+    beak: { hue: 38, chroma: 0.16, nudge: { light: -0.1375, 'light-muted': -0.2255, dark: 0.08, 'dark-muted': 0.1055 } },
     throat: { hue: 72, chroma: 0.15, nudge: { light: 0.012, dark: 0.08 } },
     perch: { hue: 130, chroma: 0.14, nudge: { dark: 0.02 } },
     stream: { hue: 200, chroma: 0.11 },
@@ -38,9 +41,10 @@ export default defineTheme({
       label: 'Light',
       appearance: 'light',
       muted: false,
-      neutral: { bg: 0.972, surface: 0.948, line: 0.957, raised: 0.99, border: 0.875, subtle: 0.565, muted: 0.47, fg: 0.27 },
+      neutral: { bg: 0.972, surface: 0.948, line: 0.957, raised: 0.99, border: 0.875, subtle: 0.53, muted: 0.47, fg: 0.27 },
       neutralChroma: 0.75,
-      accent: { lightness: 0.53, chroma: 1, brightStep: 0.08 },
+      // Hover and bright colors step darker in light mode, so they keep their contrast.
+      accent: { lightness: 0.515, chroma: 1, brightStep: -0.05 },
       syntaxChroma: 0.7,
       selection: { lightness: 0.88, chroma: 0.055 },
       tint: { lightness: 0.94, chroma: 0.035 },
@@ -51,7 +55,7 @@ export default defineTheme({
       label: 'Dark',
       appearance: 'dark',
       muted: false,
-      neutral: { bg: 0.165, surface: 0.19, line: 0.2, raised: 0.22, border: 0.28, subtle: 0.58, muted: 0.73, fg: 0.91 },
+      neutral: { bg: 0.165, surface: 0.19, line: 0.2, raised: 0.22, border: 0.28, subtle: 0.61, muted: 0.73, fg: 0.91 },
       neutralChroma: 1,
       accent: { lightness: 0.735, chroma: 1, brightStep: 0.07 },
       syntaxChroma: 0.7,
@@ -64,9 +68,9 @@ export default defineTheme({
       label: 'Light Muted',
       appearance: 'light',
       muted: true,
-      neutral: { bg: 0.93, surface: 0.905, line: 0.915, raised: 0.955, border: 0.84, subtle: 0.54, muted: 0.45, fg: 0.335 },
+      neutral: { bg: 0.93, surface: 0.905, line: 0.915, raised: 0.955, border: 0.84, subtle: 0.5, muted: 0.45, fg: 0.335 },
       neutralChroma: 0.8,
-      accent: { lightness: 0.5, chroma: 0.58, brightStep: 0.08 },
+      accent: { lightness: 0.483, chroma: 0.58, brightStep: -0.05 },
       syntaxChroma: 0.85,
       selection: { lightness: 0.855, chroma: 0.04 },
       tint: { lightness: 0.895, chroma: 0.0224 },
@@ -77,9 +81,9 @@ export default defineTheme({
       label: 'Dark Muted',
       appearance: 'dark',
       muted: true,
-      neutral: { bg: 0.235, surface: 0.26, line: 0.27, raised: 0.29, border: 0.345, subtle: 0.61, muted: 0.72, fg: 0.85 },
+      neutral: { bg: 0.235, surface: 0.26, line: 0.27, raised: 0.29, border: 0.345, subtle: 0.665, muted: 0.72, fg: 0.85 },
       neutralChroma: 0.75,
-      accent: { lightness: 0.715, chroma: 0.55, brightStep: 0.07 },
+      accent: { lightness: 0.732, chroma: 0.55, brightStep: 0.07 },
       syntaxChroma: 0.85,
       selection: { lightness: 0.36, chroma: 0.045 },
       tint: { lightness: 0.29, chroma: 0.024 },

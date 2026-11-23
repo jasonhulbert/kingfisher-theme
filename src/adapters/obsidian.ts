@@ -8,7 +8,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { alpha, hsl, mix, rgb, translucent, type Color } from '../color.ts';
+import { alpha, hsl, rgb, translucent, type Color } from '../color.ts';
 import type { ResolvedTheme, Swatch, ThemeFamily } from '../theme.ts';
 import { json, type Adapter } from './types.ts';
 
@@ -28,20 +28,19 @@ function variables(t: ResolvedTheme): Record<string, string> {
   const fill = (c: Color) => translucent(c, n.bg);
   const [h, s, l] = hsl(accent.base);
 
-  // Obsidian's grey scale, from the note background up to body text.
-  const borderHover = mix(n.border, n.subtle, 0.45);
-  const interactiveHover = mix(n.surface, n.border, 0.3);
+  // Obsidian's grey scale, from the note background up to body text. It has
+  // more steps than the palette has neutrals, so neighboring steps share one.
   const base: [string, Color][] = [
     ['00', n.bg],
-    ['05', mix(n.bg, n.surface, 0.33)],
-    ['10', mix(n.bg, n.surface, 0.66)],
+    ['05', n.bg],
+    ['10', n.surface],
     ['20', n.surface],
-    ['25', interactiveHover],
+    ['25', n.border],
     ['30', n.border],
-    ['35', mix(n.border, n.subtle, 0.15)],
-    ['40', borderHover],
+    ['35', n.border],
+    ['40', n.subtle],
     ['50', n.subtle],
-    ['60', mix(n.subtle, n.muted, 0.5)],
+    ['60', n.muted],
     ['70', n.muted],
     ['100', n.fg],
   ];
@@ -59,6 +58,10 @@ function variables(t: ResolvedTheme): Record<string, string> {
     '--accent-h': h.toFixed(1),
     '--accent-s': `${s.toFixed(1)}%`,
     '--accent-l': `${l.toFixed(1)}%`,
+    // Obsidian derives these from the HSL above; set them so they are exact.
+    '--color-accent': accent.base.hex,
+    '--color-accent-1': accent.bright.hex,
+    '--color-accent-2': accent.bright.hex,
 
     '--background-primary': n.bg.hex,
     '--background-primary-alt': n.line.hex,
@@ -67,8 +70,8 @@ function variables(t: ResolvedTheme): Record<string, string> {
     '--background-modifier-hover': alpha(n.fg, 0.06),
     '--background-modifier-active-hover': fill(accent.tint),
     '--background-modifier-border': n.border.hex,
-    '--background-modifier-border-hover': borderHover.hex,
-    '--background-modifier-border-focus': n.subtle.hex,
+    '--background-modifier-border-hover': n.subtle.hex,
+    '--background-modifier-border-focus': accent.base.hex,
     '--background-modifier-error': t.status.error.base.hex,
     '--background-modifier-error-hover': t.status.error.bright.hex,
     '--background-modifier-success': t.status.success.base.hex,
@@ -76,7 +79,7 @@ function variables(t: ResolvedTheme): Record<string, string> {
     '--background-modifier-form-field': n.raised.hex,
 
     '--interactive-normal': n.raised.hex,
-    '--interactive-hover': interactiveHover.hex,
+    '--interactive-hover': n.border.hex,
     '--interactive-accent': accent.base.hex,
     '--interactive-accent-hover': accent.bright.hex,
 

@@ -15,7 +15,7 @@ export interface Swatch {
   name: string;
   /** Text and icon color. */
   base: Color;
-  /** One step lighter: bright ANSI colors, hover states. */
+  /** One step further from the background: bright ANSI colors, hover states. */
   bright: Color;
   /** Quiet background fill: diff lines, highlights, tags, callouts. */
   tint: Color;
@@ -81,11 +81,15 @@ export function resolveTheme<H extends string>(config: ThemeConfig<H>, variantId
   };
   const neutral = Object.fromEntries(NEUTRALS.map((n) => [n, neutralAt(v.neutral[n])])) as Record<NeutralName, Color>;
 
+  const nudgeOf = (name: H) => {
+    const nudge = config.hues[name].nudge;
+    return nudge?.[variantId] ?? nudge?.[v.appearance] ?? 0;
+  };
   const hueNames = Object.keys(config.hues) as H[];
   const swatches = new Map<string, Swatch>();
   for (const name of hueNames) {
-    const { hue, chroma, nudge } = config.hues[name];
-    const l = v.accent.lightness + (nudge?.[v.appearance] ?? 0);
+    const { hue, chroma } = config.hues[name];
+    const l = v.accent.lightness + nudgeOf(name);
     const c = chroma * v.accent.chroma;
     swatches.set(name, {
       name,
@@ -105,8 +109,8 @@ export function resolveTheme<H extends string>(config: ThemeConfig<H>, variantId
   // Code colors share each hue's lightness but carry less chroma.
   const code = (name: H | NeutralName): Color => {
     if (isNeutral(name)) return neutral[name];
-    const { hue: h, chroma, nudge } = config.hues[name];
-    return oklch(v.accent.lightness + (nudge?.[v.appearance] ?? 0), chroma * v.accent.chroma * v.syntaxChroma, h);
+    const { hue: h, chroma } = config.hues[name];
+    return oklch(v.accent.lightness + nudgeOf(name), chroma * v.accent.chroma * v.syntaxChroma, h);
   };
   const pick = <K extends string, V>(keys: readonly K[], fn: (k: K) => V) =>
     Object.fromEntries(keys.map((k) => [k, fn(k)])) as Record<K, V>;

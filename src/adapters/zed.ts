@@ -5,7 +5,7 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { alpha, mix, translucent, type Color } from '../color.ts';
+import { alpha, translucent, type Color } from '../color.ts';
 import type { SyntaxRole } from '../config.ts';
 import type { ResolvedTheme, Swatch } from '../theme.ts';
 import { json, type Adapter } from './types.ts';
@@ -86,14 +86,14 @@ function style(t: ResolvedTheme) {
   const n = t.neutral;
   const { accent, cursor, selection } = t.ui;
   const sel = translucent(selection, n.bg);
-  const borderVariant = mix(n.border, n.surface, 0.5);
   const v = t.vcs;
   const s = t.status;
 
   const ansi: Record<string, string> = {};
   for (const [name, c] of Object.entries(t.ansi.normal)) {
     ansi[`terminal.ansi.${name}`] = c.hex;
-    ansi[`terminal.ansi.dim_${name}`] = mix(c, n.bg, 0.35).hex;
+    // The palette has no dimmer version of each color, so dim text keeps the color.
+    ansi[`terminal.ansi.dim_${name}`] = c.hex;
   }
   for (const [name, c] of Object.entries(t.ansi.bright)) ansi[`terminal.ansi.bright_${name}`] = c.hex;
 
@@ -121,11 +121,11 @@ function style(t: ResolvedTheme) {
     'drop_target.background': alpha(accent.base, 0.2),
 
     border: n.border.hex,
-    'border.variant': borderVariant.hex,
+    'border.variant': n.border.hex,
     'border.focused': accent.base.hex,
     'border.selected': accent.base.hex,
     'border.transparent': CLEAR,
-    'border.disabled': borderVariant.hex,
+    'border.disabled': n.border.hex,
 
     'element.background': n.raised.hex,
     'element.hover': alpha(n.fg, 0.07),
@@ -174,9 +174,9 @@ function style(t: ResolvedTheme) {
     'editor.line_number': n.subtle.hex,
     'editor.active_line_number': n.muted.hex,
     'editor.invisible': n.border.hex,
-    'editor.wrap_guide': borderVariant.hex,
+    'editor.wrap_guide': n.border.hex,
     'editor.active_wrap_guide': n.border.hex,
-    'editor.indent_guide': borderVariant.hex,
+    'editor.indent_guide': n.border.hex,
     'editor.indent_guide_active': n.subtle.hex,
     'editor.document_highlight.read_background': alpha(n.fg, 0.08),
     'editor.document_highlight.write_background': alpha(n.fg, 0.12),

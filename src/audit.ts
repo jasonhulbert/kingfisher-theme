@@ -37,6 +37,17 @@ function checks(t: ResolvedTheme): Check[] {
   for (const role of MARKDOWN_ROLES) if (role !== 'mark') add(`markdown ${role}`, t.markdown[role].base, n.bg, TEXT);
   for (const [role, s] of Object.entries(t.status)) add(`status ${role}`, s.base, n.bg, TEXT);
   for (const [role, s] of Object.entries(t.vcs)) add(`vcs ${role}`, s.base, n.bg, TEXT);
+  // Text also sits on sidebars, panels, cards and tinted callouts, and on fills that change on hover.
+  const grounds = { surface: n.surface, line: n.line, raised: n.raised };
+  add('faint text', n.subtle, n.bg, TEXT);
+  for (const [name, g] of Object.entries(grounds)) add(`faint text on ${name}`, n.subtle, g, TEXT);
+  for (const h of t.hues) {
+    for (const [name, g] of Object.entries(grounds)) add(`${h.name} on ${name}`, h.base, g, TEXT);
+    add(`${h.name} on its tint`, h.base, h.tint, TEXT);
+    add(`${h.name} hover text`, h.bright, n.bg, TEXT);
+    add(`text on ${h.name} fill`, t.ui.onAccent, h.base, TEXT);
+    add(`text on ${h.name} hover fill`, t.ui.onAccent, h.bright, TEXT);
+  }
   for (const name of ['red', 'green', 'yellow', 'blue', 'magenta', 'cyan'] as const) {
     add(`ansi ${name}`, t.ansi.normal[name], n.bg, TEXT);
     add(`ansi bright ${name}`, t.ansi.bright[name], n.bg, SHAPE);

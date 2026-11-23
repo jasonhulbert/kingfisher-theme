@@ -75,4 +75,3 @@ Read colors from the roles in `ResolvedTheme` (`src/theme.ts`), not from hue nam
 ## Before publishing
 
 - `publisher` in the config is a placeholder. Replace it with your VS Code Marketplace publisher ID.
-- Zed's extension registry requires a `repository` URL in the config.

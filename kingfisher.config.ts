@@ -13,6 +13,7 @@ export default defineTheme({
   version: '0.1.0',
   description: 'A palette taken from the oriental dwarf kingfisher.',
   publisher: 'kingfisher',
+  repository: 'https://github.com/jasonhulbert/kingfisher-theme',
 
   neutral: {
     // Near-neutral ink black, with only a trace of blue so it doesn't read as plain grey.

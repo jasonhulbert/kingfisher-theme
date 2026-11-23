@@ -4,7 +4,7 @@
  *   npm run build                       all targets into dist/
  *   npm run build -- --target zed,warp  only some targets
  *   npm run build -- --out ./out        another output folder
- *   npm run build -- --install          also copy the themes into each app
+ *   npm run build -- --install          also install the themes into each app
  *                    --vault ~/Notes    Obsidian vault for --install
  */
 
@@ -57,15 +57,20 @@ for (const adapter of adapters.filter((a) => !wanted || wanted.includes(a.id))) 
   console.log(`${adapter.name.padEnd(9)} ${files.length} files  ${join(values.out, adapter.id)}`);
 
   if (!values.install || !adapter.install) continue;
-  const copies = adapter.install(family, { home: homedir(), vault: values.vault && resolve(values.vault) });
-  if (typeof copies === 'string') {
-    console.log(`          not installed: ${copies}`);
+  const steps = adapter.install(family, { home: homedir(), vault: values.vault && resolve(values.vault) });
+  if (typeof steps === 'string') {
+    console.log(`          not installed: ${steps}`);
     continue;
   }
-  for (const { from, to } of copies) {
-    await rm(to, { recursive: true, force: true });
-    await mkdir(dirname(to), { recursive: true });
-    await cp(join(dir, from), to, { recursive: true });
-    console.log(`          installed ${to.replace(homedir(), '~')}`);
+  for (const step of steps) {
+    if ('contents' in step) {
+      await writeFile(step.to, step.contents);
+      console.log(`          updated ${step.to.replace(homedir(), '~')}`);
+      continue;
+    }
+    await rm(step.to, { recursive: true, force: true });
+    await mkdir(dirname(step.to), { recursive: true });
+    await cp(join(dir, step.from), step.to, { recursive: true });
+    console.log(`          installed ${step.to.replace(homedir(), '~')}`);
   }
 }

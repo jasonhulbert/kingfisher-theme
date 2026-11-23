@@ -1,6 +1,6 @@
 # Kingfisher
 
-One color palette, built into matching themes for VS Code, Zed, Warp, and Obsidian. The colors come from a photo of an oriental dwarf kingfisher (`reference/`). There are four variants: Light, Dark, Light Muted, and Dark Muted.
+One color palette, built into matching themes for VS Code, Zed, Warp, Obsidian, and the ChatGPT desktop app. The colors come from a photo of an oriental dwarf kingfisher (`reference/`). There are four variants: Light, Dark, Light Muted, and Dark Muted.
 
 ## How it works
 
@@ -60,14 +60,17 @@ You can set `KINGFISHER_OBSIDIAN_VAULT` instead of passing `--vault`. Run the co
 | Zed | `~/.config/zed/themes/kingfisher.json` | Pick a Kingfisher theme in the theme selector. |
 | Warp | `~/.warp/themes/kingfisher_*.yaml` | Pick a Kingfisher theme in Settings > Appearance. |
 | Obsidian | `<vault>/.obsidian/themes/Kingfisher/` and `Kingfisher Muted/` | Pick Kingfisher or Kingfisher Muted in Settings > Appearance > Themes. |
+| ChatGPT | Light and Dark, written into `~/.codex/config.toml` | Restart ChatGPT. |
 
 An Obsidian theme has only a light and a dark mode, so the muted variants ship as a second theme, Kingfisher Muted. Obsidian's own light and dark setting chooses between Light and Dark, or between Light Muted and Dark Muted. A custom accent color in Obsidian's Appearance settings overrides the theme's accent.
+
+ChatGPT takes only an accent, a background, a text color, and diff colors. It works out the rest of its colors itself, and code highlighting uses its built-in Rose Pine theme. Its custom theme has a light and a dark slot. The install writes Light and Dark into those slots and leaves every other setting in `config.toml` as it was. To use a muted variant, copy the contents of `dist/chatgpt/kingfisher-light-muted.txt` or `kingfisher-dark-muted.txt`, then click the import button beside Theme in Settings > Appearance. The ChatGPT format is not publicly documented. It was read from app version 26.1111, so an app update can change it.
 
 Each adapter's `install()` method decides where its files go. An adapter with no `install()` is built but not installed.
 
 ## Adding an app
 
-1. Create `src/adapters/<app>.ts` that exports an `Adapter`. Its `build(family)` method receives every resolved variant and returns a list of `{ path, contents }` files. An optional `install()` method returns where those files go on this machine.
+1. Create `src/adapters/<app>.ts` that exports an `Adapter`. Its `build(family)` method receives every resolved variant and returns a list of `{ path, contents }` files. An optional `install()` method returns where those files go on this machine, or the new contents of an app settings file.
 2. Add the adapter to `src/adapters/index.ts`.
 
 Read colors from the roles in `ResolvedTheme` (`src/theme.ts`), not from hue names. That keeps the new app consistent with the others when the palette changes.

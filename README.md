@@ -59,9 +59,9 @@ You can set `KINGFISHER_OBSIDIAN_VAULT` instead of passing `--vault`. Run the co
 | VS Code | `~/.vscode/extensions/<publisher>.kingfisher-theme-<version>/` | Restart VS Code, then pick a Kingfisher theme. |
 | Zed | `~/.config/zed/themes/kingfisher.json` | Pick a Kingfisher theme in the theme selector. |
 | Warp | `~/.warp/themes/kingfisher_*.yaml` | Pick a Kingfisher theme in Settings > Appearance. |
-| Obsidian | `<vault>/.obsidian/themes/Kingfisher/` | Pick Kingfisher in Settings > Appearance > Themes. |
+| Obsidian | `<vault>/.obsidian/themes/Kingfisher/` and `Kingfisher Muted/` | Pick Kingfisher or Kingfisher Muted in Settings > Appearance > Themes. |
 
-Obsidian themes support only light and dark modes. The muted variants are applied through a `kingfisher-muted` body class. The [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin shows this class as a "Muted" toggle. A custom accent color in Obsidian's Appearance settings overrides the theme's accent.
+An Obsidian theme has only a light and a dark mode, so the muted variants ship as a second theme, Kingfisher Muted. Obsidian's own light and dark setting chooses between Light and Dark, or between Light Muted and Dark Muted. A custom accent color in Obsidian's Appearance settings overrides the theme's accent.
 
 Each adapter's `install()` method decides where its files go. An adapter with no `install()` is built but not installed.
 

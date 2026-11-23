@@ -1,6 +1,6 @@
 # Kingfisher
 
-One color palette, built into matching themes for VS Code, Zed, Warp, Obsidian, and the ChatGPT desktop app. The colors come from a photo of an oriental dwarf kingfisher (`reference/`). There are four variants: Light, Dark, Light Muted, and Dark Muted.
+One color palette, built into matching themes for VS Code, Zed, Warp, Obsidian, and the ChatGPT and Claude desktop apps. The colors come from a photo of an oriental dwarf kingfisher (`reference/`). There are four variants: Light, Dark, Light Muted, and Dark Muted.
 
 ## How it works
 
@@ -61,10 +61,25 @@ You can set `KINGFISHER_OBSIDIAN_VAULT` instead of passing `--vault`. Run the co
 | Warp | `~/.warp/themes/kingfisher_*.yaml` | Pick a Kingfisher theme in Settings > Appearance. |
 | Obsidian | `<vault>/.obsidian/themes/Kingfisher/` and `Kingfisher Muted/` | Pick Kingfisher or Kingfisher Muted in Settings > Appearance > Themes. |
 | ChatGPT | Light and Dark, written into `~/.codex/config.toml` | Restart ChatGPT. |
+| Claude | `~/.claude/kingfisher-theme/` | Install once (see below). After a palette change, run `/reload-plugins` or start a new session. |
 
 An Obsidian theme has only a light and a dark mode, so the muted variants ship as a second theme, Kingfisher Muted. Obsidian's own light and dark setting chooses between Light and Dark, or between Light Muted and Dark Muted. A custom accent color in Obsidian's Appearance settings overrides the theme's accent.
 
 ChatGPT takes only an accent, a background, a text color, and diff colors. It works out the rest of its colors itself, and code highlighting uses its built-in Rose Pine theme. Its custom theme has a light and a dark slot. The install writes Light and Dark into those slots and leaves every other setting in `config.toml` as it was. To use a muted variant, copy the contents of `dist/chatgpt/kingfisher-light-muted.txt` or `kingfisher-dark-muted.txt`, then click the import button beside Theme in Settings > Appearance. The ChatGPT format is not publicly documented. It was read from app version 26.1111, so an app update can change it.
+
+Claude has no custom themes for Chat. Kingfisher themes the Code tab of the Claude desktop app through a Claude Code mod. A session shows one theme, so there are two mods, `kingfisher` and `kingfisher-muted`. Each has a light and a dark mode, and the app's own light or dark setting chooses between them. The install folder is a plugin marketplace. Add it and install one mod, once:
+
+```bash
+claude plugin marketplace add ~/.claude/kingfisher-theme
+```
+
+```bash
+claude plugin install kingfisher@kingfisher
+```
+
+Claude Code reads the mod from that folder, so later installs need only `/reload-plugins`. To switch to the muted mod, uninstall `kingfisher@kingfisher` and install `kingfisher-muted@kingfisher`.
+
+Claude's design system derives about 100 colors from a few anchors per mode, and colors code from its five roles rather than from Kingfisher's syntax roles. Its builder, `vendor/claude-code/make-colors.js`, runs at build time. The build stops if the desktop app would refuse to paint a palette. The builder comes from Claude Code's plugin-authoring skill. Copy it again, unchanged, when Claude Code updates.
 
 Each adapter's `install()` method decides where its files go. An adapter with no `install()` is built but not installed.
 

@@ -1,0 +1,41 @@
+{
+  "name": "kingfisher-theme",
+  "displayName": "Kingfisher",
+  "description": "A palette taken from the oriental dwarf kingfisher.",
+  "version": "0.1.0",
+  "publisher": "kingfisher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonhulbert/kingfisher-theme"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Kingfisher Light",
+        "uiTheme": "vs",
+        "path": "./themes/kingfisher-light-color-theme.json"
+      },
+      {
+        "label": "Kingfisher Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kingfisher-dark-color-theme.json"
+      },
+      {
+        "label": "Kingfisher Light Muted",
+        "uiTheme": "vs",
+        "path": "./themes/kingfisher-light-muted-color-theme.json"
+      },
+      {
+        "label": "Kingfisher Dark Muted",
+        "uiTheme": "vs-dark",
+        "path": "./themes/kingfisher-dark-muted-color-theme.json"
+      }
+    ]
+  }
+}

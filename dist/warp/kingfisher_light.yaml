@@ -1,0 +1,25 @@
+name: Kingfisher Light
+accent: '#752000'
+cursor: '#752000'
+background: '#f5f6f6'
+foreground: '#262627'
+details: lighter
+terminal_colors:
+  normal:
+    black: '#262627'
+    red: '#ad263f'
+    green: '#4c7600'
+    yellow: '#925e00'
+    blue: '#3c5ac4'
+    magenta: '#a72e84'
+    cyan: '#00767b'
+    white: '#cacacb'
+  bright:
+    black: '#5a5b5c'
+    red: '#9f0030'
+    green: '#416600'
+    yellow: '#805200'
+    blue: '#2e48b8'
+    magenta: '#991276'
+    cyan: '#00666b'
+    white: '#e7e8e9'

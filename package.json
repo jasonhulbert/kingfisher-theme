@@ -2,14 +2,13 @@
   "name": "kingfisher-theme",
   "version": "0.1.0",
   "private": true,
-  "description": "One palette, built into themes for VS Code, Zed, Warp, and Obsidian.",
+  "description": "One palette, built into themes for VS Code, Zed, Warp, Obsidian, ChatGPT, and Claude.",
   "type": "module",
   "engines": {
     "node": ">=23.6"
   },
   "scripts": {
     "build": "node src/cli.ts",
-    "install-themes": "node src/cli.ts --install",
     "typecheck": "tsc",
     "test": "node --test \"test/**/*.test.ts\""
   },

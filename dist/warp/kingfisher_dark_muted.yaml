@@ -1,0 +1,25 @@
+name: Kingfisher Dark Muted
+accent: '#fdb6a0'
+cursor: '#fdb6a0'
+background: '#1d1e1f'
+foreground: '#cdcecf'
+details: darker
+terminal_colors:
+  normal:
+    black: '#2d2e2f'
+    red: '#c97e82'
+    green: '#9fb985'
+    yellow: '#e3b986'
+    blue: '#89a0dd'
+    magenta: '#cd89b3'
+    cyan: '#7ab4b7'
+    white: '#b6b7b9'
+  bright:
+    black: '#626365'
+    red: '#e29296'
+    green: '#b4d098'
+    yellow: '#fccf99'
+    blue: '#9db6f8'
+    magenta: '#e69dcb'
+    cyan: '#8dcbce'
+    white: '#eeeeef'

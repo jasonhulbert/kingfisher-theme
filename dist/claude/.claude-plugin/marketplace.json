@@ -1,0 +1,19 @@
+{
+  "name": "kingfisher",
+  "owner": {
+    "name": "Jason Hulbert"
+  },
+  "description": "A palette taken from the oriental dwarf kingfisher.",
+  "plugins": [
+    {
+      "name": "kingfisher",
+      "source": "./kingfisher",
+      "description": "Kingfisher colors for the Code tab"
+    },
+    {
+      "name": "kingfisher-muted",
+      "source": "./kingfisher-muted",
+      "description": "Kingfisher Muted colors for the Code tab"
+    }
+  ]
+}

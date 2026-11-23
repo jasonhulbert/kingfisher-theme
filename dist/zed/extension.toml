@@ -1,0 +1,7 @@
+id = "kingfisher"
+name = "Kingfisher"
+version = "0.1.0"
+schema_version = 1
+authors = ["Jason Hulbert"]
+description = "A palette taken from the oriental dwarf kingfisher."
+repository = "https://github.com/jasonhulbert/kingfisher-theme"

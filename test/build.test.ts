@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 import { test } from 'node:test';
 import config from '../kingfisher.config.ts';
 import { adapters } from '../src/adapters/index.ts';
@@ -16,6 +18,16 @@ test('every adapter emits parseable files', () => {
     const files = adapter.build(family);
     assert.ok(files.length > 0, adapter.id);
     for (const f of files.filter((f) => f.path.endsWith('.json'))) JSON.parse(f.contents);
+  }
+});
+
+test('dist/ matches a fresh build', () => {
+  for (const adapter of adapters) {
+    const dir = join('dist', adapter.id);
+    const built = Object.fromEntries(adapter.build(family).map((f) => [f.path, f.contents]));
+    const files = readdirSync(dir, { recursive: true, encoding: 'utf8' }).filter((p) => statSync(join(dir, p)).isFile() && !p.endsWith('.DS_Store'));
+    const committed = Object.fromEntries(files.map((p) => [p, readFileSync(join(dir, p), 'utf8')]));
+    assert.deepEqual(committed, built, `${dir} is stale. Run npm run build.`);
   }
 });
 

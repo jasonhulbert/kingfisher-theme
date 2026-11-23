@@ -1,0 +1,25 @@
+name: Kingfisher Light Muted
+accent: '#430e00'
+cursor: '#430e00'
+background: '#e7e8e9'
+foreground: '#363738'
+details: lighter
+terminal_colors:
+  normal:
+    black: '#262628'
+    red: '#873f46'
+    green: '#4f6834'
+    yellow: '#805922'
+    blue: '#445893'
+    magenta: '#85446f'
+    cyan: '#2b696d'
+    white: '#cacacb'
+  bright:
+    black: '#5a5b5c'
+    red: '#792f38'
+    green: '#415a24'
+    yellow: '#734a08'
+    blue: '#364a86'
+    magenta: '#783561'
+    cyan: '#145c5f'
+    white: '#e7e8e9'

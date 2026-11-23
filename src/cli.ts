@@ -4,12 +4,9 @@
  *   npm run build                       all targets into dist/
  *   npm run build -- --target zed,warp  only some targets
  *   npm run build -- --out ./out        another output folder
- *   npm run build -- --install          also install the themes into each app
- *                    --vault ~/Notes    Obsidian vault for --install
  */
 
-import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
-import { homedir } from 'node:os';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import config from '../kingfisher.config.ts';
@@ -21,8 +18,6 @@ const { values } = parseArgs({
   options: {
     target: { type: 'string' },
     out: { type: 'string', default: 'dist' },
-    install: { type: 'boolean', default: false },
-    vault: { type: 'string', default: process.env.KINGFISHER_OBSIDIAN_VAULT },
   },
 });
 
@@ -55,22 +50,4 @@ for (const adapter of adapters.filter((a) => !wanted || wanted.includes(a.id))) 
     await writeFile(path, file.contents);
   }
   console.log(`${adapter.name.padEnd(9)} ${files.length} files  ${join(values.out, adapter.id)}`);
-
-  if (!values.install || !adapter.install) continue;
-  const steps = adapter.install(family, { home: homedir(), vault: values.vault && resolve(values.vault) });
-  if (typeof steps === 'string') {
-    console.log(`          not installed: ${steps}`);
-    continue;
-  }
-  for (const step of steps) {
-    if ('contents' in step) {
-      await writeFile(step.to, step.contents);
-      console.log(`          updated ${step.to.replace(homedir(), '~')}`);
-      continue;
-    }
-    await rm(step.to, { recursive: true, force: true });
-    await mkdir(dirname(step.to), { recursive: true });
-    await cp(join(dir, step.from), step.to, { recursive: true });
-    console.log(`          installed ${step.to.replace(homedir(), '~')}`);
-  }
 }

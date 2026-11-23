@@ -3,8 +3,6 @@
  * Workbench keys: https://code.visualstudio.com/api/references/theme-color
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { alpha, translucent, type Color } from '../color.ts';
 import type { SyntaxRole } from '../config.ts';
 import type { ResolvedTheme } from '../theme.ts';
@@ -401,10 +399,5 @@ export const vscode: Adapter = {
       },
     };
     return [{ path: 'package.json', contents: json(manifest) }, ...files];
-  },
-  install(family, { home }) {
-    const extensions = join(home, '.vscode', 'extensions');
-    if (!existsSync(join(home, '.vscode'))) return 'VS Code not found (no ~/.vscode folder)';
-    return [{ from: '.', to: join(extensions, `${family.publisher}.kingfisher-theme-${family.version}`) }];
   },
 };

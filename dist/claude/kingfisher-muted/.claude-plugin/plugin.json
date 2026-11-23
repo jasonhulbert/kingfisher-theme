@@ -1,0 +1,9 @@
+{
+  "name": "kingfisher-muted",
+  "version": "0.1.0",
+  "description": "Kingfisher Muted colors for the Code tab of the Claude desktop app.",
+  "author": {
+    "name": "Jason Hulbert"
+  },
+  "repository": "https://github.com/jasonhulbert/kingfisher-theme"
+}

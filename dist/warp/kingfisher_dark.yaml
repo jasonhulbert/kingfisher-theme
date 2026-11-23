@@ -1,0 +1,25 @@
+name: Kingfisher Dark
+accent: '#ffaa90'
+cursor: '#ffaa90'
+background: '#0d0e10'
+foreground: '#e0e1e3'
+details: darker
+terminal_colors:
+  normal:
+    black: '#2d2e30'
+    red: '#ec6372'
+    green: '#92c15d'
+    yellow: '#feb143'
+    blue: '#7b9eff'
+    magenta: '#ec6fc2'
+    cyan: '#3cbec4'
+    white: '#b6b7b9'
+  bright:
+    black: '#626366'
+    red: '#ff7f8a'
+    green: '#a6d96e'
+    yellow: '#ffd096'
+    blue: '#9bb7ff'
+    magenta: '#ff8bd6'
+    cyan: '#4ed6dd'
+    white: '#eeeef0'

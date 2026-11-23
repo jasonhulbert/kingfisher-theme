@@ -4,8 +4,6 @@
  * Warp documents 6-digit hex only, so no color here carries alpha.
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { ANSI_NAMES } from '../config.ts';
 import type { ResolvedTheme } from '../theme.ts';
 import type { Adapter } from './types.ts';
@@ -37,10 +35,5 @@ export const warp: Adapter = {
   name: 'Warp',
   build(family) {
     return family.themes.map((t) => ({ path: fileName(t), contents: theme(t) }));
-  },
-  install(family, { home }) {
-    const themes = join(home, '.warp', 'themes');
-    if (!existsSync(join(home, '.warp'))) return 'Warp not found (no ~/.warp folder)';
-    return family.themes.map((t) => ({ from: fileName(t), to: join(themes, fileName(t)) }));
   },
 };

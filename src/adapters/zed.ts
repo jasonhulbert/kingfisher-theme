@@ -3,8 +3,6 @@
  * Schema: https://zed.dev/schema/themes/v0.2.0.json
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { alpha, translucent, type Color } from '../color.ts';
 import type { SyntaxRole } from '../config.ts';
 import type { ResolvedTheme, Swatch } from '../theme.ts';
@@ -239,11 +237,5 @@ export const zed: Adapter = {
       { path: 'extension.toml', contents: toml },
       { path: `themes/${family.name.toLowerCase()}.json`, contents: json(themeFamily) },
     ];
-  },
-  install(family, { home }) {
-    const config = join(home, '.config', 'zed');
-    if (!existsSync(config)) return 'Zed not found (no ~/.config/zed folder)';
-    const file = `${family.name.toLowerCase()}.json`;
-    return [{ from: `themes/${file}`, to: join(config, 'themes', file) }];
   },
 };

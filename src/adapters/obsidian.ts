@@ -6,8 +6,6 @@
  * ship as a second theme, selectable on its own in Settings > Appearance.
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { alpha, hsl, rgb, translucent, type Color } from '../color.ts';
 import type { ResolvedTheme, Swatch, ThemeFamily } from '../theme.ts';
 import { json, type Adapter } from './types.ts';
@@ -174,11 +172,5 @@ export const obsidian: Adapter = {
         { path: `${name}/theme.css`, contents: css },
       ];
     });
-  },
-  install(family, { vault }) {
-    if (!vault) return 'no vault given (use --vault <path> or KINGFISHER_OBSIDIAN_VAULT)';
-    const config = join(vault, '.obsidian');
-    if (!existsSync(config)) return `${vault} is not an Obsidian vault (no .obsidian folder)`;
-    return obsidianThemes(family).map(({ name }) => ({ from: name, to: join(config, 'themes', name) }));
   },
 };

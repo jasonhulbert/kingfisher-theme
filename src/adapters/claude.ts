@@ -13,8 +13,6 @@
  * The output folder is a plugin marketplace that lists both mods.
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { checkColors, makeColors } from '../../vendor/claude-code/make-colors.js';
 import { contrast, fromHex, mix, type Color } from '../color.ts';
 import type { ResolvedTheme, Swatch, ThemeFamily } from '../theme.ts';
@@ -219,9 +217,5 @@ export const claude: Adapter = {
         { path: `${id}/hooks/register.ts`, contents: register(name, family.version, colors(name, themes)) },
       ]),
     ];
-  },
-  install(_family, { home }) {
-    if (!existsSync(join(home, '.claude'))) return 'no ~/.claude folder (Claude Code is not set up)';
-    return [{ from: '.', to: join(home, '.claude', 'kingfisher-theme') }];
   },
 };
